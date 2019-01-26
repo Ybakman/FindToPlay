@@ -1,0 +1,97 @@
+<% include ./partials/header %>
+<div class="container" >
+    <div class="row">
+        <div style="min-width: 300px; width :30%; margin: 25px auto;">
+            <form action="/lol" method="post" id="register">
+             <div class="form-group">
+                    <input class="form-control" type="text" name="header" placeholder="Server Başlığını Giriniz" required>
+                </div>
+            <div class="form-group">
+               <select class="form-control" id="exampleFormControlSelect1" name="lig" required>
+               <option value="" disabled selected>Kümenizi Seçin</option>
+               <option value="Bronz 5">Bronz 5</option>
+               <option value="Bronz 4" >Bronz 4</option>
+               <option value="Bronz 3">Bronz 3</option>
+               <option value="Bronz 2">Bronz 2</option>
+               <option value="Bronz 1">Bronz 1</option>
+               <option value="Gümüş 5">Gümüş 5</option>
+               <option value="Gümüş 4">Gümüş 4</option>
+               <option value="Gümüş 3">Gümüş 3</option>
+               <option value="Gümüş 2">Gümüş 2</option>
+               <option value="Gümüş 1">Gümüş 1</option>
+                <option value="Altın 5">Altın 5</option>
+                <option value="Altın 4">Altın 4</option>
+                <option value="Altın 3">Altın 3</option>
+                <option value="Altın 2">Altın 2</option>
+                <option value="Altın 1">Altın 1</option>
+                <option value="Platin 5">Platin 5</option>
+                <option value="Platin 4">Platin 4</option>
+                <option value="Platin 3">Platin 3</option>
+                <option value="Platin 2">Platin 2</option>
+                <option value="Platin 1">Platin 1</option>
+                <option value="Elmas 5">Elmas 5</option>
+                <option value="Elmas 4">Elmas 4</option>
+                <option value="Elmas 3" >Elmas 3</option>
+                <option value="Elmas 2">Elmas 2</option>
+                <option value="Elmas 1">Elmas 1</option>
+                <option value="Ustalık">Ustalık</option
+                <option value="Şampiyonluk">Şampiyonluk</option>
+                </select>
+             </div>
+             <div class="form-group">
+               <select class="form-control" id="exampleFormControlSelect1" name="type" required>
+                  <option disabled selected value="">Oyun Türünüzü Seçin</option>
+                  <option value="Dereceli Tek/Çift">Dereceli Tek/Çift</option>
+                  <option value="Dereceli Esnek">Dereceli Esnek </option>
+                  <option value ="Normal">Normal</option>
+                  <option value="Özel Mod">Özel Mod</option>
+                  </select>
+                 </div>
+                 <div class="form-group">
+                    <input class="form-control" type="number"  min="2" max="10"name="serverSize" placeholder="Server Büyüklüğü (min=2 max=10)" required>
+                </div> 
+                <div class="form-group">
+               <select class="form-control" id="exampleFormControlSelect1" name="rol1">
+                  <option disabled selected value="">Birincil Rolünüz (Zorunlu Değil)</option>
+                  <option value ="Üst">Üst</option>
+                  <option value="Orman">Orman </option>
+                  <option value="Orta">Orta</option>
+                  <option value = "Alt">Alt</option>
+                  <option value ="Destek">Destek</option>
+                  <option value ="Doldur">Doldur</option>
+                  </select>
+                 </div>
+              <div class="form-group">
+               <select class="form-control" name="rol2" id="exampleFormControlSelect1">
+                  <option disabled selected value="">İkincil Rolünüz (Zorunlu Değil)</option>
+                  <option value ="Üst">Üst</option>
+                  <option value="Orman">Orman </option>
+                  <option value="Orta">Orta</option>
+                  <option value = "Alt">Alt</option>
+                  <option value ="Destek">Destek</option>
+                  <option value ="Doldur">Doldur</option>
+                  </select>
+                 </div> 
+                <div class="form-group">
+                    <input class="form-control" type="text" name="fav" placeholder="Favori Şampiyonlarınız (Zorunlu Değil) " >
+                </div>
+                <div class="form-group">
+               <select class="form-control" name="lookRol" id="exampleFormControlSelect1">
+                  <option disabled selected value="">Aradığınız Rol (Zorunlu değil)</option>
+                  <option value ="Üst">Üst</option>
+                  <option value="Orman">Orman </option>
+                  <option value="Orta">Orta</option>
+                  <option value = "Alt">Alt</option>
+                  <option value ="Destek">Destek</option>
+                  <option value ="Doldur">Doldur</option>
+                  </select>
+                 </div> 
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Serveri Oluştur</button>
+                </div>
+            </form>
+            <a href="/">AnaSayfa</a>
+        </div>
+    </div>
+</div>
+<% include ./partials/footer %>

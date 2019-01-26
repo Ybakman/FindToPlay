@@ -1,0 +1,36 @@
+<% include ./partials/header %>
+<% var count=1; %>
+<div class="container change">
+<% servers.forEach(function(server){%>
+    <%if(count == 1){%>
+       <div class="row row1">
+       <%}%>
+    <% if(count % 2 === 1 && count>2){%>
+     <div class="row">
+    <%}%>
+    <div class="col-lg-6  another">
+         <div class="card card1">
+         <div class="card-header">
+            <strong><%=server.header%></strong><span class="rit">4/5</span>
+           </div>
+       <div class="card-body">
+         <p class="card-text">Küme :<%= server.lig %><span class="rit">Favori Şampiyonlar:<%=server.fav%></span></p>
+         <p class="card-text">Kurucu:<%=server.creator%> <span class="rit">Aradığı Rol: <%=server.lookRol %></span></p>
+         <p class="card-text">Oynadığı Roller: 1-<%=server.rol[0]%> 2-<%=server.rol[1]%> <span class="rit">Oyun Türü:<%=server.type%></span></p>
+         <div class="container center"><a href="/lol/servers/<%=server._id%>" class="btn btn-primary">Servera Katıl </a></div>
+      </div>
+    </div>
+    </div>
+    <%if(count%2 === 0){%>
+       </div>
+  <%}%>
+  <%if(count === this.length && count%2 === 1){%>
+         </div>
+  <%}%>
+  <%count++; %>
+<%})%>
+</div>
+</div>
+
+
+<% include ./partials/footer %>

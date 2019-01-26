@@ -1,0 +1,253 @@
+html{
+	height: 100%;
+}
+.navbar{
+	background: #F13434;
+}
+.navbar-brand{
+	color:black;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight:700;
+	font-size:2rem;
+	padding-left: 2%;
+}
+span{
+	font-size:0.5em;
+}
+#resim{
+	margin-bottom: 17px;
+	margin-right:10px;
+    color:white;
+}
+#heading:hover{
+	color:black;
+}
+.nav-link{
+	color:white;
+}
+.navbar-toggler{
+	color:black;
+}
+.bg-light{
+	background-color: #F13434 !important;
+}
+.liste{
+	color : black;
+     
+}
+.navbar-right{
+	margin-right :5%;
+}
+
+body{
+	background: #0f345a;
+	height: 100%;
+}
+
+#lolresmi,#fortresmi,#csresmi,#pubgresmi{
+	width:100%;
+	margin:0;
+}
+#lolmetni,#lolmetni2,#fortmetni,#fortmetni2,#csmetni,#csmetni2,#pubgmetni,#pubgmetni2{
+	color: #9aa72d;
+	text-align: center;
+	margin: 0;
+    
+}
+#arametin{
+	text-align: center;
+	color:#9aa72d;
+	margin : 0;
+}
+#lol,#fortnite,#cs,#pubg{
+	border: 2px solid black;
+}
+#lol,#fortnite,#cs,#pubg{
+	float:left;
+}
+#lolsimge,#fortsimge,#cssimge,#pubgsimge{
+	width:50%;
+	margin-left: 25%;
+	margin-bottom:15px ;
+	margin-top:15px;
+	}
+#button1,#button3,#button5,#button7{
+	margin:3% 11%;
+	background: #F13434;
+	border: #F13434;	
+}
+#button2,#button4,#button6,#button8{
+	margin:3% 11%;
+	background: #F13434;
+	border: #F13434;
+}
+#lol,#fortnite,#cs,#pubg{
+	margin-left:5%;
+	margin-right:5%;
+	margin-top: 30px;
+	background: #082235;
+	min-width: 350px; 
+	float: left;
+	margin-bottom: 30px;
+}
+.in{
+	color: black;
+}
+#fortsimge{
+	margin-bottom: 28px;
+}
+#ilk{
+	margin-right: 40px;
+}
+#cssimge{
+margin-bottom: 20px;
+margin-top: 34px;
+}
+#pubgsimge{
+	margin-bottom: 18px;
+margin-top: 30px;
+}
+.navbar-fixed-top {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+#lol,#fortnite{
+	margin-top:140px;
+}
+ a:hover{
+    text-decoration: none;
+}
+
+#register{
+	margin-top:200px;
+}
+
+.btn-primary{
+	color:black;
+	background-color: #F13434;
+	border-color:#F13434;
+}
+#messageForm{
+	padding-top: 300px;
+}
+#deneme{
+	float: left;
+}
+.card1{
+	margin-left:auto;
+	margin-right: auto;
+	margin-bottom:25px;
+}
+.card-header{
+	text-align:center;
+	font-size:20px;
+}
+.orta{
+	text-align: center;
+}
+
+.card-text{
+	font-size:15px;
+	margin-bottom: 2px;
+}
+.rit{
+	float:right;
+	font-size:15px;
+}
+.change{
+	padding:0;
+}
+.card-body{
+	background: #ff3b001f;
+	padding:7px;
+}
+.center{
+	text-align:center;
+}
+.card-header{
+	padding:3px;
+	background: #bb8484;
+}
+.another{
+	min-width:480px;
+}
+.row1{
+	padding-top:100px;
+}
+.card.chat-room .members-panel-1,
+.card.chat-room .chat-1 {
+  position: relative;
+  overflow-y: scroll; }
+
+.card.chat-room .members-panel-1 {
+  height: 570px; }
+
+.card.chat-room .chat-1 {
+  height: 495px; }
+
+.card.chat-room .friend-list li {
+  border-bottom: 1px solid #e0e0e0; }
+  .card.chat-room .friend-list li:last-of-type {
+    border-bottom: none; }
+
+.card.chat-room img.rounded-circle {
+  border-radius: 50%; }
+
+.card.chat-room img.avatar {
+  height: 3rem;
+  width: 3rem; }
+
+.card.chat-room .text-small {
+  font-size: 0.95rem; }
+
+.card.chat-room .text-smaller {
+  font-size: 0.75rem; }
+
+.scrollbar-light-blue::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #F5F5F5;
+  border-radius: 10px; }
+
+.scrollbar-light-blue::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5; }
+
+.scrollbar-light-blue::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #82B1FF; }
+
+.rare-wind-gradient {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#a8edea), to(#fed6e3));
+  background-image: -webkit-linear-gradient(bottom, #a8edea 0%, #fed6e3 100%);
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); }
+
+  .newChat{
+  	width:70%;
+  	margin:auto;
+  	max-width:841px;
+  	min-width:375px;
+  	background: #d4d1d1;
+  }
+  .w-100{
+  	margin:0;
+  }
+  #mes{
+  	margin-bottom:0.25rem;
+  }
+#space{
+	width:250px;
+	background: #0f345a;
+	height: 100px;
+}
+#button9{
+	background: #F13434;
+	margin-right:10px;
+}
+#exampleFormControlTextarea2{
+	height:40px;
+	width:95%;
+	margin:auto;
+}

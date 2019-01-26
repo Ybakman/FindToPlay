@@ -1,0 +1,62 @@
+
+<div id="space"></div>
+<div class="card rare-wind-gradient chat-room newChat">
+    <div class="card-body">
+        <!-- Grid row -->
+        <div class="row px-lg-2 px-2">
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class=" col-md-12 col-xl-12 pl-md-12 px-lg-auto px-0">
+
+                <div class="chat-message">
+                    <ul class="list-unstyled chat-1 scrollbar-light-blue">  
+                    </ul>
+                    <form action="" id="messageForm2">
+                    <div class="white">
+                        <div class="form-group basic-textarea">
+                            <textarea form="messageForm2"   class="form-control pl-2 my-0" id="exampleFormControlTextarea2" rows="3" placeholder="Mesajınızı buraya yazın"></textarea>
+                        </div>
+                    </div>
+                    <button id="button9" type="submit" class="btn btn-outline-pink btn-rounded btn-md waves-effect waves-dark float-right">Gönder</button>
+                </div>
+                </form>
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    $("#exampleFormControlTextarea2").keypress(function (e) {
+    if(e.which == 13 && !e.shiftKey) {        
+        $(this).closest("form").submit();
+        e.preventDefault();
+        return false;
+    }
+});
+     $(function(){
+     	var socket = io("/lol/servers/<%=server._id%>");
+	   $("#messageForm2").submit(function(){
+	   socket.emit('chat message',{message:$("#exampleFormControlTextarea2").val(),user:"<%=currentUser.username%>"});
+     $("#exampleFormControlTextarea2").val("");
+	   // bu return false formu gönderdikten sonra sayfanın refresh edilmesini engeller
+	     return false;
+        });
+     socket.on('chat message',function(data){
+     var large = "<li id='mes' class='d-flex justify-content-between '><div class='chat-body white  ml-2 z-depth-1'><div class='header'><strong class='primary-font'>"+data.username+":"+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o'></i> 12 mins ago</small></div><hr class='w-100'><p class='mb-0'>" + data.message+"</p></div></li>";
+     var large2 = "<li id='mes' class='d-flex justify-content-between '><div class='chat-body white  ml-2 z-depth-1'><div class='header'><strong class='primary-font'>"+data.username+":"+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o'></i> 12 mins ago</small></div><hr class='w-100'><p class='mb-0'>" + data.message+"</p></div></li>";
+       if("<%=currentUser.username%>" === data.username){
+       $(".chat-1").append(large);
+       }
+	     else{
+       $(".chat-1").append(large2);
+       }
+     });
+     });
+</script>
+<% include ./partials/footer %>
