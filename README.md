@@ -8,5 +8,5 @@ The coding step of the program is unfinished. However, users can create new prof
 
 How it works?
 
-Go to code file by terminal and write node app.js in terminal.
+Go to code file by terminal and write node app.js in terminal. TRYİNG
 
