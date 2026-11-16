@@ -7,7 +7,7 @@
     <div class="field-grid">
       <label>Full name<input name="name" value="<%= player?.name || '' %>" required maxlength="80"></label>
       <label>Nickname<input name="nickname" value="<%= player?.nickname || '' %>" maxlength="40"></label>
-      <label>Position<select name="position"><% ["Goalkeeper","Defender","Midfielder","Forward"].forEach(p => { %><option <%= player?.position === p ? "selected" : "" %>><%= p %></option><% }) %></select></label>
+      <label>Position<select name="position"><% ["Unspecified","Goalkeeper","Defender","Midfielder","Forward"].forEach(p => { %><option <%= player?.position === p ? "selected" : "" %>><%= p %></option><% }) %></select></label>
       <label>Shirt number<input name="shirt_number" type="number" min="1" max="99" value="<%= player?.shirt_number || '' %>"></label>
     </div>
     <label>Profile photo URL <span>optional</span><input name="photo_url" type="url" value="<%= player?.photo_url || '' %>" placeholder="https://…"></label>

@@ -1,4 +1,4 @@
-# Sunday League
+# Thursday Football
 
 A complete first version of a weekly amateur football site. It publishes fixtures and results, match reports, player-by-player stats, player-of-the-match awards, video embeds, and cumulative player profiles. A private server-rendered admin console keeps the content easy to maintain.
 
@@ -44,5 +44,16 @@ npm start          # run the compiled production app
 4. Run `npm ci`, `npm run build`, then `npm start`.
 5. Only YouTube and Vimeo are embedded; other valid video URLs are shown as safe external links.
 
-The supplied chat-export paths were not present in the build workspace, so the included names, game and copy are clearly illustrative seed content rather than inferred personal data. Replace them through the admin console. Product assumptions and page organization are documented in [SITE_STRUCTURE.md](SITE_STRUCTURE.md).
+## Seed content provenance
+
+The initial football records are derived conservatively from the supplied November 2026 group-chat exports:
+
+- The first game was Thursday 12 November, 9–10pm, with dark and white sides.
+- The next game was planned for Thursday 19 November at the same time.
+- The SoFive event video URL is preserved as an external link.
+- Names are included only where a participant was identified in the conversation.
+- The team-sheet images were omitted from the export, and the chat does not state the final score, exact lineups, positions, individual totals, or final player-of-the-match poll result. Those fields are intentionally shown as unknown rather than inferred.
+- Phone numbers, pickup addresses and payment details from the chat are not stored or displayed.
+
+Product assumptions and page organization are documented in [SITE_STRUCTURE.md](SITE_STRUCTURE.md).
 

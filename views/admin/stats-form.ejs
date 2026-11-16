@@ -1,6 +1,6 @@
 <%- include("../partials/site-header") %>
 <section class="form-shell wide">
-  <div class="form-heading"><a class="back-link" href="/admin/matches/<%= match.id %>/edit">← Game details</a><p class="eyebrow">Step 2 of 2</p><h1>Player stats</h1><p><%= match.home_name %> <%= match.home_score %>–<%= match.away_score %> <%= match.away_name %>. Leave “Did not play” selected for anyone absent.</p></div>
+  <div class="form-heading"><a class="back-link" href="/admin/matches/<%= match.id %>/edit">← Game details</a><p class="eyebrow">Step 2 of 2</p><h1>Player stats</h1><p><%= match.home_name %> <%= match.score_known ? `${match.home_score}–${match.away_score}` : "v" %> <%= match.away_name %>. Leave “Did not play” selected for anyone absent.</p></div>
   <form class="form-card" method="post" action="/admin/matches/<%= match.id %>/stats">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <div class="table-wrap"><table class="stats-input"><thead><tr><th>Player</th><th>Team</th><th>Goals</th><th>Assists</th></tr></thead><tbody>

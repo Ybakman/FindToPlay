@@ -2,14 +2,16 @@
 
 ## Product assumptions
 
-- One recurring amateur group plays a weekly internal game, usually with two colour-based teams.
+- The group plays on Thursday evenings, with the available records covering 12 and 19 November 2026 at 9–10pm.
+- The available team labels are Dark and White. The exported team sheets were images, so player assignments are unknown.
 - Public visitors can browse everything; only one trusted administrator needs write access in version one.
 - A “game” may be scheduled, played or cancelled. Played games can have a score, report, video, player of the match and per-player goals/assists.
 - Cumulative player totals are calculated from appearances, never copied into editable counters.
 - A player can be marked inactive without losing history.
 - Images are optional remote URLs. A styled initials placeholder keeps every profile complete without requiring file storage.
 - YouTube and Vimeo links receive privacy-conscious embeds; other valid URLs remain external watch links.
-- Sample records are illustrative because the supplied chat exports were unavailable at their given filesystem paths during implementation.
+- Chat-derived facts are seeded only when the text export supports them. Unknown scores, positions, lineups, individual totals and poll outcomes remain explicitly unrecorded.
+- Private logistics from the chat—phone numbers, addresses, rides and payment details—are intentionally excluded.
 
 ## Public information architecture
 
@@ -55,6 +57,7 @@ data/               Runtime SQLite database (gitignored)
 
 - `players` stores profile information and active status.
 - `matches` stores fixture/result information and optionally references the awarded player.
+- `matches.score_known` distinguishes a genuine 0–0 result from a played game whose score was not present in the source.
 - `appearances` joins players to matches, records their team and stores goals/assists.
 - `admins` stores Argon2 hashes only.
 - `sessions` stores random session IDs, CSRF tokens and expiries; the browser receives only a signed, HTTP-only cookie.

@@ -21,7 +21,7 @@ export async function createDatabase(filename = process.env.DATABASE_PATH ?? "da
     );
     CREATE TABLE IF NOT EXISTS players (
       id INTEGER PRIMARY KEY, name TEXT NOT NULL, nickname TEXT NOT NULL DEFAULT '',
-      position TEXT NOT NULL CHECK(position IN ('Goalkeeper','Defender','Midfielder','Forward')),
+      position TEXT NOT NULL CHECK(position IN ('Unspecified','Goalkeeper','Defender','Midfielder','Forward')),
       shirt_number INTEGER, bio TEXT NOT NULL DEFAULT '', photo_url TEXT NOT NULL DEFAULT '',
       active INTEGER NOT NULL DEFAULT 1 CHECK(active IN (0,1)),
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -31,6 +31,7 @@ export async function createDatabase(filename = process.env.DATABASE_PATH ?? "da
       home_name TEXT NOT NULL, away_name TEXT NOT NULL,
       home_score INTEGER NOT NULL DEFAULT 0 CHECK(home_score >= 0),
       away_score INTEGER NOT NULL DEFAULT 0 CHECK(away_score >= 0),
+      score_known INTEGER NOT NULL DEFAULT 1 CHECK(score_known IN (0,1)),
       status TEXT NOT NULL CHECK(status IN ('scheduled','played','cancelled')),
       report TEXT NOT NULL DEFAULT '', video_url TEXT NOT NULL DEFAULT '',
       potm_player_id INTEGER REFERENCES players(id) ON DELETE SET NULL,
@@ -47,6 +48,10 @@ export async function createDatabase(filename = process.env.DATABASE_PATH ?? "da
     CREATE INDEX IF NOT EXISTS idx_matches_played_at ON matches(played_at DESC);
     CREATE INDEX IF NOT EXISTS idx_appearances_player ON appearances(player_id);
   `);
+  const matchColumns = db.prepare("PRAGMA table_info(matches)").all() as { name: string }[];
+  if (!matchColumns.some((column) => column.name === "score_known")) {
+    db.exec("ALTER TABLE matches ADD COLUMN score_known INTEGER NOT NULL DEFAULT 1 CHECK(score_known IN (0,1))");
+  }
   await seed(db);
   return db;
 }
@@ -65,36 +70,31 @@ async function seed(db: Db) {
     "INSERT INTO players (name,nickname,position,shirt_number,bio) VALUES (?,?,?,?,?)"
   );
   const players = [
-    ["Alex Morgan", "The Wall", "Goalkeeper", 1, "A calm presence and fearless shot-stopper."],
-    ["Jamie Reed", "Skip", "Defender", 4, "Organiser, captain and last-ditch tackle specialist."],
-    ["Sam Patel", "Engine", "Midfielder", 8, "Sets the tempo and never stops running."],
-    ["Chris Taylor", "CT", "Forward", 9, "Sharp movement and an eye for the near post."],
-    ["Ollie Grant", "Silk", "Midfielder", 10, "Creative playmaker with quick feet."],
-    ["Dan Brooks", "Brooksy", "Defender", 5, "Dominant in the air and tidy in possession."],
-    ["Mo Khan", "Mo", "Forward", 11, "Direct runner who makes things happen."],
-    ["Ben Carter", "BC", "Defender", 2, "Reliable one-on-one defender."],
-    ["Leo Martin", "Leo", "Midfielder", 6, "Ball-winner and first to every second ball."],
-    ["Ryan Cole", "RC", "Forward", 7, "Fast finisher who stretches the pitch."]
+    ["Yavuz", "", "Unspecified", null, ""],
+    ["Metehan Oguz", "", "Unspecified", null, ""],
+    ["Alper", "", "Unspecified", null, ""],
+    ["Bahadır Barlas", "", "Unspecified", null, ""],
+    ["Yiğit Türkmen", "", "Unspecified", null, ""],
+    ["Sriram", "", "Unspecified", null, ""],
+    ["Dulce", "", "Unspecified", null, ""],
+    ["Jesus", "", "Unspecified", null, ""],
+    ["Pranav Kumar", "", "Unspecified", null, ""],
+    ["Ege", "", "Unspecified", null, ""],
+    ["Amir", "", "Unspecified", null, ""]
   ];
   const insert = db.transaction(() => players.forEach((p) => addPlayer.run(...p)));
   insert();
   const match = db.prepare(`INSERT INTO matches
-    (played_at,venue,home_name,away_name,home_score,away_score,status,report,video_url,potm_player_id)
-    VALUES (?,?,?,?,?,?,?,?,?,?)`);
-  const last = match.run(
-    "2026-11-10T20:00", "Riverside 3G, Pitch 2", "Orange", "Blue", 7, 6, "played",
-    "A breathless end-to-end game settled by a late winner. Blue led twice, but Orange stayed patient and found the decisive overlap.",
-    "https://www.youtube.com/watch?v=dQw4w9WgXcQ", 3
-  ).lastInsertRowid;
-  const stats = [
-    [last,1,"home",0,0],[last,2,"home",1,0],[last,3,"home",2,2],[last,4,"home",3,1],[last,5,"home",1,2],
-    [last,6,"away",0,1],[last,7,"away",2,1],[last,8,"away",0,0],[last,9,"away",1,2],[last,10,"away",3,1]
-  ];
-  const addStat = db.prepare("INSERT INTO appearances VALUES (?,?,?,?,?)");
-  db.transaction(() => stats.forEach((s) => addStat.run(...s)))();
+    (played_at,venue,home_name,away_name,home_score,away_score,score_known,status,report,video_url,potm_player_id)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?)`);
   match.run(
-    "2026-11-17T20:00", "Riverside 3G, Pitch 2", "Orange", "Blue", 0, 0, "scheduled",
-    "Teams and full player stats will be added after the final whistle.", "", null
+    "2026-11-12T21:00", "SoFive (location shared in group chat)", "Dark", "White", 0, 0, 0, "played",
+    "The first game of the season was arranged for 9–10pm. The group planned a 6v6 game, with dark and white sides. A post-match player-of-the-match poll nominated Dulce, Sriram, Jesus and Ege, but the export does not include a final result. One participant praised Jesus for his goals, while another highlighted Metehan’s header; neither message provides a verified total. The score, team sheet and individual totals were not available in the chat text.",
+    "https://webapp.sofive.com/event/1173037", null
+  );
+  match.run(
+    "2026-11-19T21:00", "SoFive (location shared in group chat)", "Dark", "White", 0, 0, 0, "scheduled",
+    "The group planned to return at the same time the following Thursday. Attendance and teams were still being confirmed in the available export.", "", null
   );
 }
 

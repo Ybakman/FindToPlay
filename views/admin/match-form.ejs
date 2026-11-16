@@ -11,6 +11,7 @@
       <label>Away team<input name="away_name" value="<%= match?.away_name || 'Blue' %>" required></label>
       <label>Home score<input name="home_score" type="number" min="0" max="99" value="<%= match?.home_score ?? 0 %>" required></label>
       <label>Away score<input name="away_score" type="number" min="0" max="99" value="<%= match?.away_score ?? 0 %>" required></label>
+      <label>Is the score confirmed?<select name="score_known"><option value="1" <%= match?.score_known !== 0 ? "selected" : "" %>>Yes</option><option value="0" <%= match?.score_known === 0 ? "selected" : "" %>>No — show as unrecorded</option></select></label>
       <label>Status<select name="status"><% ["scheduled","played","cancelled"].forEach(s => { %><option value="<%= s %>" <%= (match?.status || "scheduled") === s ? "selected" : "" %>><%= s[0].toUpperCase()+s.slice(1) %></option><% }) %></select></label>
       <label>Player of the match<select name="potm_player_id"><option value="">Not selected</option><% players.forEach(p => { %><option value="<%= p.id %>" <%= match?.potm_player_id === p.id ? "selected" : "" %>><%= p.name %></option><% }) %></select></label>
     </div>

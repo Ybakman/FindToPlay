@@ -23,16 +23,18 @@ describe("public website", () => {
     const response = await request(app).get("/");
     expect(response.status).toBe(200);
     expect(response.text).toContain("Our game.");
-    expect(response.text).toContain("7–6");
+    expect(response.text).toContain("Thu, 19 Nov 2026");
+    expect(response.text).toContain("Not recorded");
     expect(response.headers["content-security-policy"]).toBeTruthy();
   });
 
-  it("renders match stats and a privacy-enhanced video embed", async () => {
+  it("renders the verified match record without inventing missing stats", async () => {
     const response = await request(app).get("/matches/1");
     expect(response.status).toBe(200);
     expect(response.text).toContain("Player stats");
-    expect(response.text).toContain("youtube-nocookie.com/embed/");
-    expect(response.text).toContain("Sam Patel");
+    expect(response.text).toContain("score, team sheet and individual totals were not available");
+    expect(response.text).toContain("https://webapp.sofive.com/event/1173037");
+    expect(response.text).toContain("Stats will be added after the game");
   });
 
   it("returns a useful 404 page", async () => {
@@ -70,5 +72,14 @@ describe("admin console", () => {
     });
     expect(saved.status).toBe(302);
     expect(db.prepare("SELECT name FROM players WHERE name=?").get("Taylor Green")).toEqual({ name: "Taylor Green" });
+
+    const match = await agent.post("/admin/matches").type("form").send({
+      _csrf: csrf, played_at: "2026-11-26T21:00", venue: "Venue pending",
+      home_name: "Dark", away_name: "White", home_score: "0", away_score: "0",
+      score_known: "0", status: "scheduled", report: "", video_url: "", potm_player_id: ""
+    });
+    expect(match.status).toBe(302);
+    expect(db.prepare("SELECT score_known FROM matches WHERE played_at=?").get("2026-11-26T21:00"))
+      .toEqual({ score_known: 0 });
   });
 });

@@ -21,7 +21,7 @@ const optionalUrl = z.union([z.literal(""), webUrl]);
 const playerSchema = z.object({
   name: z.string().trim().min(2).max(80),
   nickname: z.string().trim().max(40).default(""),
-  position: z.enum(["Goalkeeper", "Defender", "Midfielder", "Forward"]),
+  position: z.enum(["Unspecified", "Goalkeeper", "Defender", "Midfielder", "Forward"]),
   shirt_number: z.union([z.literal(""), z.coerce.number().int().min(1).max(99)]),
   bio: z.string().trim().max(500).default(""),
   photo_url: optionalUrl.default(""),
@@ -34,6 +34,7 @@ const matchSchema = z.object({
   away_name: z.string().trim().min(1).max(40),
   home_score: z.coerce.number().int().min(0).max(99),
   away_score: z.coerce.number().int().min(0).max(99),
+  score_known: z.coerce.number().int().min(0).max(1),
   status: z.enum(["scheduled", "played", "cancelled"]),
   report: z.string().trim().max(5000).default(""),
   video_url: optionalUrl.default(""),
@@ -202,16 +203,16 @@ export function createApp(db: Db) {
       players: playerRows(db, true), errors: parsed.error.issues.map((e) => e.message)
     });
     const m = parsed.data;
-    const values = [m.played_at, m.venue, m.home_name, m.away_name, m.home_score, m.away_score,
+    const values = [m.played_at, m.venue, m.home_name, m.away_name, m.home_score, m.away_score, m.score_known,
       m.status, m.report, m.video_url, m.potm_player_id || null];
     if (id) {
       db.prepare(`UPDATE matches SET played_at=?,venue=?,home_name=?,away_name=?,home_score=?,away_score=?,
-        status=?,report=?,video_url=?,potm_player_id=? WHERE id=?`).run(...values, id);
+        score_known=?,status=?,report=?,video_url=?,potm_player_id=? WHERE id=?`).run(...values, id);
       return res.redirect(`/admin/matches/${id}/stats`);
     }
     const result = db.prepare(`INSERT INTO matches
-      (played_at,venue,home_name,away_name,home_score,away_score,status,report,video_url,potm_player_id)
-      VALUES (?,?,?,?,?,?,?,?,?,?)`).run(...values);
+      (played_at,venue,home_name,away_name,home_score,away_score,score_known,status,report,video_url,potm_player_id)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?)`).run(...values);
     res.redirect(`/admin/matches/${result.lastInsertRowid}/stats`);
   }
 

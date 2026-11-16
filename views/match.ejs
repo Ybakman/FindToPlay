@@ -4,7 +4,7 @@
   <p class="eyebrow"><%= formatDate(match.played_at) %> · <%= match.venue %></p>
   <div class="big-score">
     <strong><%= match.home_name %></strong>
-    <b><%= match.status === "played" ? `${match.home_score}–${match.away_score}` : "VS" %></b>
+    <b><%= match.status === "played" ? (match.score_known ? `${match.home_score}–${match.away_score}` : "—") : "VS" %></b>
     <strong><%= match.away_name %></strong>
   </div>
   <span class="status <%= match.status %>"><%= match.status === "played" ? "Full time" : match.status %></span>
@@ -19,7 +19,7 @@
   <aside>
     <div class="potm-card">
       <p class="eyebrow">Player of the match</p><span class="avatar large"><%= match.potm_name ? match.potm_name.split(" ").map(n => n[0]).join("").slice(0,2) : "?" %></span>
-      <h3><%= match.potm_name || "To be announced" %></h3>
+      <h3><%= match.potm_name || (match.status === "played" ? "Not recorded" : "To be announced") %></h3>
       <% if (match.potm_name) { %><p><%= match.potm_position %> · “<%= match.potm_nickname %>”</p><% } %>
     </div>
   </aside>
