@@ -17,12 +17,15 @@ This is deliberately a small monolith: straightforward to deploy and operate for
 Requirements: Node.js 22 or newer and npm.
 
 ```bash
-git clone https://github.com/Ybakman/Football-Website.git
-cd Football-Website
+git clone https://github.com/Ybakman/FindToPlay.git
+cd FindToPlay
+git switch --track origin/cursor/weekly-football-site-6e55
 cp .env.example .env
 npm ci
 npm run dev
 ```
+
+The explicit branch checkout is required while the site is under review in pull request #3. After that branch is merged, use the repository’s default branch instead.
 
 Open the public site at `http://localhost:3000` and the administrator sign-in at `http://localhost:3000/admin/login`. Change `PORT` in `.env` if port 3000 is unavailable.
 
