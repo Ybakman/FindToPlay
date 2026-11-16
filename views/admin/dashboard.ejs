@@ -1,0 +1,17 @@
+<%- include("../partials/site-header") %>
+<section class="admin-head">
+  <div><p class="eyebrow">Control room</p><h1>Team admin</h1><p>Keep the weekly record accurate and up to date.</p></div>
+  <form method="post" action="/admin/logout"><input type="hidden" name="_csrf" value="<%= csrfToken %>"><button class="button ghost dark">Sign out</button></form>
+</section>
+<% if (notice) { %><div class="notice"><%= notice %></div><% } %>
+<section class="admin-grid content-section">
+  <div class="admin-panel">
+    <div class="section-head"><div><p class="eyebrow">Fixtures & results</p><h2>Games</h2></div><a class="button primary small" href="/admin/matches/new">+ Add game</a></div>
+    <% matches.forEach(match => { %><div class="admin-row"><div><strong><%= match.home_name %> <%= match.score_known ? `${match.home_score}–${match.away_score}` : "—" %> <%= match.away_name %></strong><small><%= formatDate(match.played_at) %> · <%= match.status %><%= match.score_known ? "" : " · score unrecorded" %></small></div><div><a href="/admin/matches/<%= match.id %>/edit">Edit</a><a href="/admin/matches/<%= match.id %>/stats">Stats</a></div></div><% }) %>
+  </div>
+  <div class="admin-panel">
+    <div class="section-head"><div><p class="eyebrow">Squad directory</p><h2>Players</h2></div><a class="button primary small" href="/admin/players/new">+ Add player</a></div>
+    <% players.forEach(player => { %><div class="admin-row"><div><strong><%= player.name %></strong><small><%= player.position %> · <%= player.active ? "Active" : "Inactive" %></small></div><a href="/admin/players/<%= player.id %>/edit">Edit</a></div><% }) %>
+  </div>
+</section>
+<%- include("../partials/site-footer") %>

@@ -1,0 +1,19 @@
+<%- include("../partials/site-header") %>
+<section class="form-shell">
+  <div class="form-heading"><a class="back-link" href="/admin">← Admin</a><p class="eyebrow">Squad directory</p><h1><%= player ? "Edit player" : "Add a player" %></h1></div>
+  <form class="form-card" method="post" action="<%= player ? `/admin/players/${player.id}` : '/admin/players' %>">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <% if (errors.length) { %><div class="form-error"><strong>Please check the form:</strong><ul><% errors.forEach(e => { %><li><%= e %></li><% }) %></ul></div><% } %>
+    <div class="field-grid">
+      <label>Full name<input name="name" value="<%= player?.name || '' %>" required maxlength="80"></label>
+      <label>Nickname<input name="nickname" value="<%= player?.nickname || '' %>" maxlength="40"></label>
+      <label>Position<select name="position"><% ["Unspecified","Goalkeeper","Defender","Midfielder","Forward"].forEach(p => { %><option <%= player?.position === p ? "selected" : "" %>><%= p %></option><% }) %></select></label>
+      <label>Shirt number<input name="shirt_number" type="number" min="1" max="99" value="<%= player?.shirt_number || '' %>"></label>
+    </div>
+    <label>Profile photo URL <span>optional</span><input name="photo_url" type="url" value="<%= player?.photo_url || '' %>" placeholder="https://…"></label>
+    <label>Short bio<textarea name="bio" rows="4" maxlength="500"><%= player?.bio || '' %></textarea></label>
+    <label>Squad status<select name="active"><option value="1" <%= player?.active !== 0 ? "selected" : "" %>>Active</option><option value="0" <%= player?.active === 0 ? "selected" : "" %>>Inactive</option></select></label>
+    <div class="form-actions"><button class="button primary" type="submit">Save player</button><a class="button ghost dark" href="/admin">Cancel</a></div>
+  </form>
+</section>
+<%- include("../partials/site-footer") %>

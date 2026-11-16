@@ -1,0 +1,43 @@
+<%- include("partials/site-header") %>
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Thursday nights · 9pm kick-off</p>
+    <h1>Our game.<br><em>Our history.</em></h1>
+    <p>Every score, goal and great night in one place. Follow the weekly game and see who is setting the standard.</p>
+    <div class="actions"><a class="button primary" href="/matches">View all games</a><a class="button ghost" href="/players">Meet the players</a></div>
+  </div>
+  <% if (next) { %>
+  <article class="next-card">
+    <div class="card-label"><span class="live-dot"></span> Next game</div>
+    <p class="date"><%= formatDate(next.played_at) %> · <%= formatTime(next.played_at) %></p>
+    <div class="versus"><strong><%= next.home_name %></strong><span>VS</span><strong><%= next.away_name %></strong></div>
+    <p class="venue"><%= next.venue %></p>
+  </article>
+  <% } %>
+</section>
+
+<section class="content-section">
+  <div class="section-head"><div><p class="eyebrow">Last time out</p><h2>Latest result</h2></div><a href="/matches">All games →</a></div>
+  <% if (latest) { %>
+  <a class="result-feature" href="/matches/<%= latest.id %>">
+    <div><span class="status played">Full time</span><p><%= formatDate(latest.played_at) %></p></div>
+    <div class="scoreline"><strong><%= latest.home_name %></strong><b><%= latest.score_known ? `${latest.home_score}–${latest.away_score}` : "—" %></b><strong><%= latest.away_name %></strong></div>
+    <div class="potm"><span>Player of the match</span><strong><%= latest.potm_name || "Not recorded" %></strong></div>
+  </a>
+  <% } %>
+</section>
+
+<section class="content-section leaders-section">
+  <div class="section-head"><div><p class="eyebrow">Season totals</p><h2>Leading the way</h2></div><a href="/players">Full squad →</a></div>
+  <div class="leader-grid">
+    <% leaders.forEach((player, index) => { %>
+      <a class="leader-card" href="/players/<%= player.id %>">
+        <span class="rank">0<%= index + 1 %></span>
+        <span class="avatar"><%= player.name.split(" ").map(n => n[0]).join("").slice(0,2) %></span>
+        <div><strong><%= player.name %></strong><small><%= player.position %></small></div>
+        <div class="leader-stat"><b><%= player.goals %></b><small>Goals</small></div>
+      </a>
+    <% }) %>
+  </div>
+</section>
+<%- include("partials/site-footer") %>

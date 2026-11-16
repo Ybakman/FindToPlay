@@ -1,0 +1,23 @@
+<%- include("../partials/site-header") %>
+<section class="form-shell">
+  <div class="form-heading"><a class="back-link" href="/admin">← Admin</a><p class="eyebrow">Weekly game</p><h1><%= match ? "Edit game" : "Add a game" %></h1><p>Save the basics first, then add each player's stats.</p></div>
+  <form class="form-card" method="post" action="<%= match ? `/admin/matches/${match.id}` : '/admin/matches' %>">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <% if (errors.length) { %><div class="form-error"><ul><% errors.forEach(e => { %><li><%= e %></li><% }) %></ul></div><% } %>
+    <div class="field-grid">
+      <label>Date & time<input name="played_at" type="datetime-local" value="<%= match?.played_at?.slice(0,16) || '' %>" required></label>
+      <label>Venue<input name="venue" value="<%= match?.venue || '' %>" required maxlength="120"></label>
+      <label>Home team<input name="home_name" value="<%= match?.home_name || 'Orange' %>" required></label>
+      <label>Away team<input name="away_name" value="<%= match?.away_name || 'Blue' %>" required></label>
+      <label>Home score<input name="home_score" type="number" min="0" max="99" value="<%= match?.home_score ?? 0 %>" required></label>
+      <label>Away score<input name="away_score" type="number" min="0" max="99" value="<%= match?.away_score ?? 0 %>" required></label>
+      <label>Is the score confirmed?<select name="score_known"><option value="1" <%= match?.score_known !== 0 ? "selected" : "" %>>Yes</option><option value="0" <%= match?.score_known === 0 ? "selected" : "" %>>No — show as unrecorded</option></select></label>
+      <label>Status<select name="status"><% ["scheduled","played","cancelled"].forEach(s => { %><option value="<%= s %>" <%= (match?.status || "scheduled") === s ? "selected" : "" %>><%= s[0].toUpperCase()+s.slice(1) %></option><% }) %></select></label>
+      <label>Player of the match<select name="potm_player_id"><option value="">Not selected</option><% players.forEach(p => { %><option value="<%= p.id %>" <%= match?.potm_player_id === p.id ? "selected" : "" %>><%= p.name %></option><% }) %></select></label>
+    </div>
+    <label>Video URL <span>YouTube and Vimeo embed automatically</span><input name="video_url" type="url" value="<%= match?.video_url || '' %>" placeholder="https://youtube.com/watch?v=…"></label>
+    <label>Match report<textarea name="report" rows="7" maxlength="5000"><%= match?.report || '' %></textarea></label>
+    <div class="form-actions"><button class="button primary" type="submit">Save & continue to stats</button><a class="button ghost dark" href="/admin">Cancel</a></div>
+  </form>
+</section>
+<%- include("../partials/site-footer") %>

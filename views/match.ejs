@@ -1,0 +1,34 @@
+<%- include("partials/site-header") %>
+<section class="score-hero">
+  <a class="back-link" href="/matches">← All games</a>
+  <p class="eyebrow"><%= formatDate(match.played_at) %> · <%= match.venue %></p>
+  <div class="big-score">
+    <strong><%= match.home_name %></strong>
+    <b><%= match.status === "played" ? (match.score_known ? `${match.home_score}–${match.away_score}` : "—") : "VS" %></b>
+    <strong><%= match.away_name %></strong>
+  </div>
+  <span class="status <%= match.status %>"><%= match.status === "played" ? "Full time" : match.status %></span>
+</section>
+<section class="detail-grid content-section">
+  <div>
+    <p class="eyebrow">Match story</p><h2>How it happened</h2>
+    <p class="report"><%= match.report || "The match report will be added after the final whistle." %></p>
+    <% if (embed) { %><div class="video"><iframe src="<%= embed %>" title="Match video" allowfullscreen loading="lazy"></iframe></div>
+    <% } else if (match.video_url) { %><a class="button ghost dark" href="<%= match.video_url %>" rel="noopener noreferrer" target="_blank">Watch match video ↗</a><% } %>
+  </div>
+  <aside>
+    <div class="potm-card">
+      <p class="eyebrow">Player of the match</p><span class="avatar large"><%= match.potm_name ? match.potm_name.split(" ").map(n => n[0]).join("").slice(0,2) : "?" %></span>
+      <h3><%= match.potm_name || (match.status === "played" ? "Not recorded" : "To be announced") %></h3>
+      <% if (match.potm_name) { %><p><%= match.potm_position %> · “<%= match.potm_nickname %>”</p><% } %>
+    </div>
+  </aside>
+</section>
+<section class="content-section stats-section">
+  <div class="section-head"><div><p class="eyebrow">The numbers</p><h2>Player stats</h2></div></div>
+  <div class="table-wrap"><table><thead><tr><th>Player</th><th>Team</th><th>Goals</th><th>Assists</th></tr></thead><tbody>
+    <% appearances.forEach(a => { %><tr><td><a href="/players/<%= a.player_id %>"><strong><%= a.name %></strong><small><%= a.position %></small></a></td><td><%= a.team === "home" ? match.home_name : match.away_name %></td><td><b><%= a.goals %></b></td><td><b><%= a.assists %></b></td></tr><% }) %>
+    <% if (!appearances.length) { %><tr><td colspan="4">Stats will be added after the game.</td></tr><% } %>
+  </tbody></table></div>
+</section>
+<%- include("partials/site-footer") %>

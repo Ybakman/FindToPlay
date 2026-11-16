@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Weekly games, stats and stories from our amateur football community.">
+  <title><%= title %> · Thursday Football</title>
+  <link rel="stylesheet" href="/stylesheets/football.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Thursday Football home">
+      <span class="brand-mark">TF</span><span>Thursday Football<small>9pm, every week</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="/matches">Games</a><a href="/players">Players</a>
+      <% if (admin) { %><a class="admin-link" href="/admin">Admin</a><% } %>
+    </nav>
+  </header>
+  <main>

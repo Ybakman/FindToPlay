@@ -1,0 +1,17 @@
+<%- include("partials/site-header") %>
+<section class="page-hero">
+  <p class="eyebrow">The weekly record</p><h1>Games</h1>
+  <p>Fixtures, final scores, match reports and every individual contribution.</p>
+</section>
+<section class="content-section">
+  <div class="match-list">
+  <% matches.forEach(match => { %>
+    <a class="match-row" href="/matches/<%= match.id %>">
+      <div><span class="status <%= match.status %>"><%= match.status === "played" ? "Full time" : match.status %></span><small><%= formatDate(match.played_at) %></small></div>
+      <div class="match-teams"><strong><%= match.home_name %></strong><b><%= match.status === "played" ? (match.score_known ? `${match.home_score}–${match.away_score}` : "Score unrecorded") : formatTime(match.played_at) %></b><strong><%= match.away_name %></strong></div>
+      <div class="match-meta"><span><%= match.venue %></span><small><%= match.player_count %> players · View report →</small></div>
+    </a>
+  <% }) %>
+  </div>
+</section>
+<%- include("partials/site-footer") %>

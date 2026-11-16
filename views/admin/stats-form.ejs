@@ -1,0 +1,17 @@
+<%- include("../partials/site-header") %>
+<section class="form-shell wide">
+  <div class="form-heading"><a class="back-link" href="/admin/matches/<%= match.id %>/edit">← Game details</a><p class="eyebrow">Step 2 of 2</p><h1>Player stats</h1><p><%= match.home_name %> <%= match.score_known ? `${match.home_score}–${match.away_score}` : "v" %> <%= match.away_name %>. Leave “Did not play” selected for anyone absent.</p></div>
+  <form class="form-card" method="post" action="/admin/matches/<%= match.id %>/stats">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="table-wrap"><table class="stats-input"><thead><tr><th>Player</th><th>Team</th><th>Goals</th><th>Assists</th></tr></thead><tbody>
+      <% players.forEach(player => { const stat = byPlayer[player.id]; %><tr>
+        <td><strong><%= player.name %></strong><small><%= player.position %></small></td>
+        <td><select name="team_<%= player.id %>"><option value="">Did not play</option><option value="home" <%= stat?.team === "home" ? "selected" : "" %>><%= match.home_name %></option><option value="away" <%= stat?.team === "away" ? "selected" : "" %>><%= match.away_name %></option></select></td>
+        <td><input aria-label="<%= player.name %> goals" name="goals_<%= player.id %>" type="number" min="0" max="30" value="<%= stat?.goals || 0 %>"></td>
+        <td><input aria-label="<%= player.name %> assists" name="assists_<%= player.id %>" type="number" min="0" max="30" value="<%= stat?.assists || 0 %>"></td>
+      </tr><% }) %>
+    </tbody></table></div>
+    <div class="form-actions"><button class="button primary" type="submit">Save all stats</button><a class="button ghost dark" href="/admin">Save later</a></div>
+  </form>
+</section>
+<%- include("../partials/site-footer") %>
