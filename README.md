@@ -14,17 +14,33 @@ This is deliberately a small monolith: straightforward to deploy and operate for
 
 ## Local setup
 
-Requirements: Node.js 22+ and npm.
+Requirements: Node.js 22 or newer and npm.
 
 ```bash
+git clone https://github.com/Ybakman/Football-Website.git
+cd Football-Website
 cp .env.example .env
-npm install
+npm ci
 npm run dev
 ```
 
-Open `http://localhost:3000`. The database and sample data are created automatically at `data/football.db`.
+Open the public site at `http://localhost:3000` and the administrator sign-in at `http://localhost:3000/admin/login`. Change `PORT` in `.env` if port 3000 is unavailable.
 
-The development fallback login is `admin` / `change-me-now`. Set a strong `ADMIN_PASSWORD` before first production startup; the password hash is created only when the admin table is empty. To recreate the initial admin locally, remove the development database.
+### Database and first administrator
+
+No database command is required. On the first startup, the app creates the SQLite file configured by `DATABASE_PATH` (default: `data/football.db`), applies its schema and inserts the chat-derived starter records. The `data/` directory and database are gitignored.
+
+Before the first startup, configure these values in `.env`:
+
+```dotenv
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=replace-with-a-long-unique-password
+COOKIE_SECRET=replace-with-at-least-32-random-characters
+```
+
+The first startup creates one administrator using `ADMIN_USERNAME` and an Argon2 hash of `ADMIN_PASSWORD`. These variables do not overwrite an administrator already stored in the database. To intentionally recreate the initial local database and administrator, stop the app, delete `data/football.db`, then run `npm run dev` again. This also removes all locally entered games and players.
+
+For development only, omitting the variables falls back to `admin` / `change-me-now` and a development cookie secret. Production startup refuses to initialize without `ADMIN_PASSWORD` and `COOKIE_SECRET`.
 
 ## Commands
 
