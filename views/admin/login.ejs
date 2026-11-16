@@ -1,0 +1,13 @@
+<%- include("../partials/site-header") %>
+<section class="login-shell">
+  <form class="form-card login-card" method="post" action="/admin/login">
+    <span class="brand-mark big">SL</span><p class="eyebrow">Private area</p><h1>Team admin</h1>
+    <p>Sign in to update games, player profiles and match stats.</p>
+    <% if (error) { %><div class="form-error"><%= error %></div><% } %>
+    <label>Username<input name="username" autocomplete="username" required autofocus></label>
+    <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+    <button class="button primary" type="submit">Sign in securely</button>
+    <a href="/">← Back to the website</a>
+  </form>
+</section>
+<%- include("../partials/site-footer") %>

@@ -1,0 +1,19 @@
+<%- include("partials/site-header") %>
+<section class="page-hero">
+  <p class="eyebrow">The people behind the numbers</p><h1>The squad</h1>
+  <p>Players, personalities and the cumulative stats from every recorded game.</p>
+</section>
+<section class="content-section player-grid">
+  <% players.forEach(player => { %>
+    <a class="player-card" href="/players/<%= player.id %>">
+      <div class="portrait">
+        <% if (player.photo_url) { %><img src="<%= player.photo_url %>" alt=""><% } else { %>
+        <span><%= player.name.split(" ").map(n => n[0]).join("").slice(0,2) %></span><% } %>
+        <% if (player.shirt_number) { %><b>#<%= player.shirt_number %></b><% } %>
+      </div>
+      <div class="player-copy"><small><%= player.position %></small><h2><%= player.name %></h2><p>“<%= player.nickname || "No nickname yet" %>”</p></div>
+      <div class="mini-stats"><span><b><%= player.appearances %></b>Apps</span><span><b><%= player.goals %></b>Goals</span><span><b><%= player.assists %></b>Assists</span></div>
+    </a>
+  <% }) %>
+</section>
+<%- include("partials/site-footer") %>

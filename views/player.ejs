@@ -1,0 +1,17 @@
+<%- include("partials/site-header") %>
+<section class="profile-hero">
+  <a class="back-link" href="/players">← The squad</a>
+  <div class="profile-portrait">
+    <% if (player.photo_url) { %><img src="<%= player.photo_url %>" alt=""><% } else { %><span><%= player.name.split(" ").map(n => n[0]).join("").slice(0,2) %></span><% } %>
+  </div>
+  <div><p class="eyebrow"><%= player.position %><%= player.shirt_number ? ` · #${player.shirt_number}` : "" %></p><h1><%= player.name %></h1><h2>“<%= player.nickname || "No nickname yet" %>”</h2><p><%= player.bio %></p></div>
+</section>
+<section class="content-section profile-stats">
+  <div><b><%= player.appearances %></b><span>Appearances</span></div><div><b><%= player.goals %></b><span>Goals</span></div><div><b><%= player.assists %></b><span>Assists</span></div><div><b><%= player.potm_awards %></b><span>POTM awards</span></div>
+</section>
+<section class="content-section"><div class="section-head"><div><p class="eyebrow">Match log</p><h2>Game by game</h2></div></div>
+  <div class="table-wrap"><table><thead><tr><th>Game</th><th>Date</th><th>Goals</th><th>Assists</th></tr></thead><tbody>
+    <% games.forEach(game => { %><tr><td><a href="/matches/<%= game.id %>"><strong><%= game.home_name %> <%= game.home_score %>–<%= game.away_score %> <%= game.away_name %></strong></a></td><td><%= formatDate(game.played_at) %></td><td><b><%= game.goals %></b></td><td><b><%= game.assists %></b></td></tr><% }) %>
+  </tbody></table></div>
+</section>
+<%- include("partials/site-footer") %>
